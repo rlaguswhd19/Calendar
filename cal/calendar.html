@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,15 +13,15 @@
 
     <div class="main">
         <div class="content-wrap">
-           <div class="content-left">
-               <div style="margin-top: 100px;"></div>
-               <div class="main-day" id="_main-day">WED</div>
-               <div class="main-date" id="_main-date">21</div>
-           </div>
+            <div class="content-left">
+                <div style="margin-top: 100px;"></div>
+                <div class="main-day" id="_main-day">WED</div>
+                <div class="main-date" id="_main-date">21</div>
+            </div>
 
-           <div class="content-right">
-               <h1 id="_year" style="font-size: 50px;"></h1>
-               <table id="calendar" style="width:100%">
+            <div class="content-right">
+                <h1 id="_year" style="font-size: 50px;"></h1>
+                <table id="_calendar" style="width:100%">
                     <thead>
                         <tr>
                             <th colspan="2">
@@ -48,24 +49,45 @@
                     </thead>
 
                     <tbody id="_calendar-body" class="calendar-body"></tbody>
-               </table>
-           </div>
+                </table>
+            </div>
         </div>
     </div>
     <script>
-        var currentTitle = $("#_current-year-month")
+        // var 메모리에 남는다 vs let 함수가 끝나면 메모리에서 삭제된다.
+        var currentTitle = $("#_current-year-month");
+        var calendarBody = document.getElementById("_calendar-body");
         var today = new Date();
-        var months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
-        var days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+        var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+        var days = ["SUN", "MON", "THU", "WED", "THU", "FRI", "SAT"];
         // 첫날
         var first = new Date(today.getFullYear(), today.getMonth(), 1);
         // 마지막날
-        var last = new Date(today.getFullYear(), today.getMonth()+1, 0);
+        var last = new Date(today.getFullYear(), today.getMonth() + 1, 0);
         var month = today.getMonth();
 
-        $(document).ready(function(){
+
+        $(document).ready(function () {
             $("#_year").text(today.getFullYear());
             currentTitle.text(months[month]);
+
+            let a = first.getDay();
+            let cnt = 1;
+
+            for (let i = 0; i < 5; i++) {
+                var _tr = document.createElement("tr");
+                _tr.setAttribute("id", "_tr" + i);
+
+                for (let j = 0; j < 7; j++) {
+                    var _td = document.createElement("td");
+                    _td.setAttribute("id", "_td" + cnt);
+                    _tr.appendChild(_td);
+                    cnt++;
+                }
+                calendarBody.appendChild(_tr);
+                // document.getElementById("_calendar-body").appendChild(_tr);
+            }
+
         });
     </script>
 </body>
