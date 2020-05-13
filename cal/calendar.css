@@ -10,7 +10,7 @@ html, body{
 
 .content-wrap{
     width: 90%;
-    margin: auto;
+    margin: 0 auto;
     margin-top: 100px;
     border: 4px solid black;
     overflow: hidden;
@@ -19,17 +19,26 @@ html, body{
 
 .content-left{
     float: left;
-    width: 39%;
-    height: 600px;
-    background-color: red;
+    width: 25%;
+    padding: 7%;
     border: 4px solid black;
 }
 
 .content-right{
     float: right;
-    width: 59%;
-    height: 600px;
-    background-color: blue;
-    border: 3px solid black;
+    width: 54%;
+    border: 4px solid black;
+    padding: 3%;
+}
+
+.content-right table ,th, td {
+    border-collapse: collapse;
+    border: 1px solid black;
+}
+
+.content-right th, td {
+    padding: 5px;
+    width: 10%;
+    text-align: center;
 }
 
