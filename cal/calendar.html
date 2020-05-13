@@ -59,13 +59,16 @@
         var calendarBody = document.getElementById("_calendar-body");
         var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
         var days = ["SUN", "MON", "THU", "WED", "THU", "FRI", "SAT"];
-        
+
         // 오늘
         var today = new Date();
         // 첫날
         var first;
         // 마지막날
         var last;
+
+        // 일수
+        var monthDays;
 
         $(document).ready(function () {
             // 현재 년도와 월을 입력한다.
@@ -97,9 +100,9 @@
         });
 
         function getLastDay(year, month) {
-            alert(year+" "+month);
+            alert(year + " " + month);
             last = new Date(year, month, 0);
-            alert(last);
+            monthDays = parseInt(last.toString().split(" ")[2]);
         }
     </script>
 </body>
