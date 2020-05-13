@@ -13,19 +13,23 @@
     <div class="main">
         <div class="content-wrap">
            <div class="content-left">
+               <div style="margin-top: 100px;"></div>
+               <div class="main-day" id="_main-day">WED</div>
+               <div class="main-date" id="_main-date">21</div>
            </div>
 
            <div class="content-right">
+               <h1 id="_year" style="font-size: 50px;"></h1>
                <table id="calendar" style="width:100%">
                     <thead>
                         <tr>
-                            <th>
+                            <th colspan="2">
                                 <label id="prev">
                                     &#60;
                                 </label>
                             </th>
-                            <th colspan="5"> a </th>
-                            <th>
+                            <th colspan="3" id="_current-year-month"></th>
+                            <th colspan="2">
                                 <label id="next">
                                     &#62;
                                 </label>
@@ -43,41 +47,26 @@
                         </tr>
                     </thead>
 
-                    <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>1</td>
-                            <td>1</td>
-                            <td>1</td>
-                            <td>1</td>
-                            <td>1</td>
-                            <td>1</td>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>1</td>
-                            <td>1</td>
-                            <td>1</td>
-                            <td>1</td>
-                            <td>1</td>
-                            <td>1</td>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>1</td>
-                            <td>1</td>
-                            <td>1</td>
-                            <td>1</td>
-                            <td>1</td>
-                            <td>1</td>
-                        </tr>
-                    </tbody>
+                    <tbody id="_calendar-body" class="calendar-body"></tbody>
                </table>
            </div>
         </div>
     </div>
     <script>
+        var currentTitle = $("#_current-year-month")
+        var today = new Date();
+        var months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+        var days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+        // 첫날
+        var first = new Date(today.getFullYear(), today.getMonth(), 1);
+        // 마지막날
+        var last = new Date(today.getFullYear(), today.getMonth()+1, 0);
+        var month = today.getMonth();
 
+        $(document).ready(function(){
+            $("#_year").text(today.getFullYear());
+            currentTitle.text(months[month]);
+        });
     </script>
 </body>
 
