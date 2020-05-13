@@ -57,23 +57,28 @@
         // var 메모리에 남는다 vs let 함수가 끝나면 메모리에서 삭제된다.
         var currentTitle = $("#_current-year-month");
         var calendarBody = document.getElementById("_calendar-body");
-        var today = new Date();
         var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
         var days = ["SUN", "MON", "THU", "WED", "THU", "FRI", "SAT"];
+        
+        // 오늘
+        var today = new Date();
         // 첫날
-        var first = new Date(today.getFullYear(), today.getMonth(), 1);
+        var first;
         // 마지막날
-        var last = new Date(today.getFullYear(), today.getMonth() + 1, 0);
-        var month = today.getMonth();
-
+        var last;
 
         $(document).ready(function () {
+            // 현재 년도와 월을 입력한다.
             $("#_year").text(today.getFullYear());
-            currentTitle.text(months[month]);
+            currentTitle.text(months[today.getMonth()]);
+
+            //마지막날이 몇일까지인지 구한다.
+            getLastDay(today.getFullYear(), today.getMonth() + 1);
 
             let a = first.getDay();
             let cnt = 1;
 
+            //table 만드는 과정
             for (let i = 0; i < 5; i++) {
                 var _tr = document.createElement("tr");
                 _tr.setAttribute("id", "_tr" + i);
@@ -84,11 +89,18 @@
                     _tr.appendChild(_td);
                     cnt++;
                 }
+
                 calendarBody.appendChild(_tr);
                 // document.getElementById("_calendar-body").appendChild(_tr);
             }
 
         });
+
+        function getLastDay(year, month) {
+            alert(year+" "+month);
+            last = new Date(year, month, 0);
+            alert(last);
+        }
     </script>
 </body>
 
