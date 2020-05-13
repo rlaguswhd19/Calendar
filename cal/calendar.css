@@ -21,8 +21,7 @@ html, body{
 .content-left{
     float: left;
     text-align: center;
-    width: 30%;
-    padding: 3%;
+    width: 34%;
     border: 1px solid black;
 }
 
@@ -35,8 +34,8 @@ html, body{
 
 .content-right{
     float: right;
-    width: 58%;
-    padding: 2%;
+    width: 64%;
+    align-content: center;
     border: 1px solid black;
 }
 
