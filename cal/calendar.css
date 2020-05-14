@@ -10,7 +10,6 @@ html, body{
 
 .content-wrap{
     width: 90%;
-    height: 600px;
     margin: 0 auto;
     margin-top: 100px;
     border: 4px solid black;
@@ -22,7 +21,6 @@ html, body{
     float: left;
     text-align: center;
     width: 34%;
-    border: 1px solid black;
 }
 
 .main-day {
@@ -36,7 +34,6 @@ html, body{
     float: right;
     width: 64%;
     align-content: center;
-    border: 1px solid black;
 }
 
 .content-right table ,th, td {

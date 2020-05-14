@@ -20,7 +20,7 @@
             </div>
 
             <div class="content-right">
-                <h1 id="_year" style="font-size: 50px;"></h1>
+                <h1 id="_current-year" style="font-size: 50px;"></h1>
                 <table id="_calendar" style="width:100%">
                     <thead>
                         <tr>
@@ -29,7 +29,7 @@
                                     &#60;
                                 </label>
                             </th>
-                            <th colspan="3" id="_current-year-month"></th>
+                            <th colspan="3" id="_current-month"></th>
                             <th colspan="2">
                                 <label id="next">
                                     &#62;
@@ -53,9 +53,11 @@
             </div>
         </div>
     </div>
+
     <script>
         // var 메모리에 남는다 vs let 함수가 끝나면 메모리에서 삭제된다.
-        var currentTitle = $("#_current-year-month");
+        var currentMonth = $("#_current-month");
+        var currentYear = $("#_current-year")
         var calendarBody = document.getElementById("_calendar-body");
         var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
         var days = ["SUN", "MON", "THU", "WED", "THU", "FRI", "SAT"];
@@ -64,26 +66,73 @@
         var today = new Date();
         // 첫날
         var first;
-
         // 일수
         var monthDays;
-
         // 현재 년도와 월
         var yaer, month, day;
 
         $(document).ready(function () {
             // 현재 년도와 월을 입력한다.
-            $("#_year").text(today.getFullYear());
-            currentTitle.text(months[today.getMonth()]);
-
             year = today.getFullYear();
             month = today.getMonth();
-            
+
+            currentYear.text(year);
+            currentMonth.text(months[month]);
+
+
             //마지막날이 몇일까지인지 구한다.
             getLastDay();
 
             //달력 만들기
             createCalendar();
+        });
+
+        $("#prev").click(function () {
+            month -= 1;
+
+            if (month == 0) {
+                month = 12;
+                year -= 1;
+            }
+
+            //tbody 삭제
+            document.getElementById("_calendar-body").remove();
+
+            // tbody 다시만들기
+            var tbody = document.createElement("tbody");
+            tbody.setAttribute("id", "_calendar-body");
+            tbody.setAttribute("class", "calendar-body");
+            document.getElementById("_calendar").appendChild(tbody);
+
+            getLastDay();
+            createCalendar();
+
+            currentYear.text(year);
+            currentMonth.text(months[month]);
+        });
+
+        $("#next").click(function () {
+            month += 1;
+
+            if (month == 13) {
+                month = 1;
+                yaer += 1;
+            }
+
+            //tbody 삭제
+            document.getElementById("_calendar-body").remove();
+
+            // tbody 다시만들기
+            var tbody = document.createElement("tbody");
+            tbody.setAttribute("id", "_calendar-body");
+            tbody.setAttribute("class", "calendar-body");
+            document.getElementById("_calendar").appendChild(tbody);
+
+            getLastDay();
+            createCalendar();
+
+            currentYear.text(year);
+            currentMonth.text(months[month]);
         });
 
         // 마지막날 구하기
@@ -95,15 +144,12 @@
         function createCalendar() {
             let cnt = 1;
 
+            calendarBody = document.getElementById("_calendar-body");
             first = new Date(year, month, 1);
 
-            alert(first.getDay());
-            alert(monthDays);
-            let stop = false;
-
             for (let i = 0; i < 6; i++) {
-                
-                if(stop){
+
+                if (cnt > monthDays) {
                     break;
                 }
 
@@ -124,17 +170,13 @@
                         if (cnt <= monthDays) {
                             _td.textContent = cnt;
                             cnt++;
-                        }else{
-                            stop = true;
                         }
-
                     }
 
                     _tr.appendChild(_td);
                 }
 
                 calendarBody.appendChild(_tr);
-                // document.getElementById("_calendar-body").appendChild(_tr);
             }
         }
     </script>
