@@ -64,45 +64,78 @@
         var today = new Date();
         // 첫날
         var first;
-        // 마지막날
-        var last;
 
         // 일수
         var monthDays;
+
+        // 현재 년도와 월
+        var yaer, month, day;
 
         $(document).ready(function () {
             // 현재 년도와 월을 입력한다.
             $("#_year").text(today.getFullYear());
             currentTitle.text(months[today.getMonth()]);
 
+            year = today.getFullYear();
+            month = today.getMonth();
+            
             //마지막날이 몇일까지인지 구한다.
-            getLastDay(today.getFullYear(), today.getMonth() + 1);
+            getLastDay();
 
-            let a = first.getDay();
+            //달력 만들기
+            createCalendar();
+        });
+
+        // 마지막날 구하기
+        function getLastDay() {
+            last = new Date(year, month + 1, 0);
+            monthDays = parseInt(last.toString().split(" ")[2]);
+        }
+
+        function createCalendar() {
             let cnt = 1;
 
-            //table 만드는 과정
-            for (let i = 0; i < 5; i++) {
+            first = new Date(year, month, 1);
+
+            alert(first.getDay());
+            alert(monthDays);
+            let stop = false;
+
+            for (let i = 0; i < 6; i++) {
+                
+                if(stop){
+                    break;
+                }
+
                 var _tr = document.createElement("tr");
                 _tr.setAttribute("id", "_tr" + i);
 
                 for (let j = 0; j < 7; j++) {
                     var _td = document.createElement("td");
-                    _td.setAttribute("id", "_td" + cnt);
+                    _td.setAttribute("id", "_td" + i + "_" + j);
+
+                    if (i == 0) {
+                        if (j >= first.getDay()) {
+                            _td.textContent = cnt;
+                            cnt++;
+                        }
+                    } else {
+
+                        if (cnt <= monthDays) {
+                            _td.textContent = cnt;
+                            cnt++;
+                        }else{
+                            stop = true;
+                        }
+
+                    }
+
                     _tr.appendChild(_td);
-                    cnt++;
                 }
 
                 calendarBody.appendChild(_tr);
                 // document.getElementById("_calendar-body").appendChild(_tr);
             }
-
-        });
-
-        function getLastDay(year, month) {
-            alert(year + " " + month);
-            last = new Date(year, month, 0);
-            monthDays = parseInt(last.toString().split(" ")[2]);
         }
     </script>
 </body>
