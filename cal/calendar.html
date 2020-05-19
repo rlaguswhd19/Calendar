@@ -60,10 +60,13 @@
         var currentYear = $("#_current-year")
         var mainDay = $("#_main-day");
         var mainDate = $("#_main-date");
+
         var calendarBody = document.getElementById("_calendar-body");
         var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
         var days = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
-
+        
+        // 현재 td;
+        var currentTd;
         // 오늘
         var today = new Date();
         // 첫날
@@ -82,11 +85,12 @@
             //마지막날이 몇일까지인지 구한다.
             getLastDay();
 
+            mainDay.text(days[today.getDay()]);
+            mainDate.text(today.getDate());
+            
             //달력 만들기
             createCalendar();
 
-            mainDay.text(days[today.getDay()]);
-            mainDate.text(today.getDate());
         });
 
         $("#prev").click(function () {
@@ -108,8 +112,6 @@
 
             getLastDay();
             createCalendar();
-
-            
         });
 
         $("#next").click(function () {
@@ -165,9 +167,14 @@
                             cnt++;
                         }
                     } else {
-
                         if (cnt <= monthDays) {
                             _td.textContent = cnt;
+                            
+                            if(cnt == document.getElementById("_main-date").textContent){
+                                currentTd = _td;
+                                currentTd.style.backgroundColor="red";
+                            }
+
                             cnt++;
                         }
                     }
@@ -191,6 +198,7 @@
         function changeDay(obj) {
             // 안비어있을때
             if (obj.textContent != "") {
+                currentTd.style.backgroundColor="white";
                 // id를 찾은다음에
                 let id = obj.id.toString();
                 
@@ -199,8 +207,11 @@
                 
                 mainDay.text(days[idx]);
                 mainDate.text(obj.textContent);
+                currentTd = obj;
+                currentTd.style.backgroundColor="red";
             }
-        }
+        };
+
     </script>
 </body>
 
