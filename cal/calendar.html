@@ -65,14 +65,18 @@
         var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
         var days = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
 
-        // 현재 td;
-        var currentTd;
+        // 현재 선택된 날짜
+        var currentDate, currentTd;
+
         // 오늘
         var today = new Date();
+
         // 첫날
         var first;
+
         // 일수
         var monthDays;
+
         // 현재 년도와 월
         var yaer, month;
 
@@ -81,7 +85,9 @@
             // 현재 년도와 월을 입력한다.
             year = today.getFullYear();
             month = today.getMonth();
+            currentDate = new Date(year, month, today.getDate());
 
+            alert(currentDate.getTime());
             //마지막날이 몇일까지인지 구한다.
             getLastDay();
 
@@ -91,6 +97,7 @@
             //달력 만들기
             createCalendar();
 
+            alert(currentTd.value);
         });
 
         $("#prev").click(function () {
@@ -162,16 +169,30 @@
                     let day = null;
                     _td.setAttribute("id", "_td" + i + "_" + j);
                     _td.setAttribute("onclick", "changeDay(this)");
+
                     if (i == 0) {
                         if (j >= first.getDay()) {
                             _td.textContent = cnt;
                             day = new Date(year, month, cnt);
+
+                            // 선택된 날짜에 빨간색 만들기
+                            if (day.getTime() == currentDate.getTime()) {
+                                _td.style.backgroundColor = 'red';
+                                currentTd = _td;
+                            }
+
                             cnt++;
                         }
                     } else {
                         if (cnt <= monthDays) {
                             _td.textContent = cnt;
                             day = new Date(year, month, cnt);
+
+                            // 선택된 날짜에 빨간색 만들기
+                            if (day.getTime() == currentDate.getTime()) {
+                                _td.style.backgroundColor = 'red';
+                                currentTd = _td;
+                            }
                             cnt++;
                         }
                     }
@@ -180,8 +201,9 @@
                     // if (j == 0 || j == 6) {
                     //     _td.style.color = "red";
                     // }
-                    _td.setAttribute("value", day);
+                    _td.value = day;
                     _tr.appendChild(_td);
+
                 }
 
                 calendarBody.appendChild(_tr);
@@ -195,17 +217,17 @@
         function changeDay(obj) {
             // 안비어있을때
             if (obj.textContent != "") {
-                currentTd.style.backgroundColor = "white";
-                // id를 찾은다음에
-                let id = obj.id.toString();
+                // currentTd.style.backgroundColor = "white";
+                // // id를 찾은다음에
+                // let id = obj.id.toString();
 
-                // 요일의 index를 가져온다.
-                let idx = id.substring(id.length - 1, id.length);
+                // // 요일의 index를 가져온다.
+                // let idx = id.substring(id.length - 1, id.length);
 
-                mainDay.text(days[idx]);
-                mainDate.text(obj.textContent);
-                currentTd = obj;
-                currentTd.style.backgroundColor = "red";
+                // mainDay.text(days[idx]);
+                // mainDate.text(obj.textContent);
+                // currentTd = obj;
+                // currentTd.style.backgroundColor = "red";
             }
         };
 
