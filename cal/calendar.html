@@ -38,13 +38,13 @@
                         </tr>
 
                         <tr>
-                            <th>SUN</th>
+                            <th style = "color:red">SUN</th>
                             <th>MON</th>
                             <th>TUE</th>
                             <th>WED</th>
                             <th>THU</th>
                             <th>FRI</th>
-                            <th>SAT</th>
+                            <th style = "color:blue">SAT</th>
                         </tr>
                     </thead>
 
@@ -90,8 +90,8 @@
         $("#prev").click(function () {
             month -= 1;
 
-            if (month == 0) {
-                month = 12;
+            if (month == -1) {
+                month = 11;
                 year -= 1;
             }
 
@@ -114,9 +114,9 @@
         $("#next").click(function () {
             month += 1;
 
-            if (month == 13) {
-                month = 1;
-                yaer += 1;
+            if (month == 12) {
+                month = 0;
+                year += 1;
             }
 
             //tbody 삭제
@@ -172,6 +172,11 @@
                             cnt++;
                         }
                     }
+
+                    // 글자를 빨간색으로..
+                    // if (j == 0 || j == 6) {
+                    //     _td.style.color = "red";
+                    // }
 
                     _tr.appendChild(_td);
                 }
