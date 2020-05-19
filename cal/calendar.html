@@ -15,8 +15,8 @@
         <div class="content-wrap">
             <div class="content-left">
                 <div style="margin-top: 100px;"></div>
-                <div class="main-day" id="_main-day">WED</div>
-                <div class="main-date" id="_main-date">21</div>
+                <div class="main-day" id="_main-day"></div>
+                <div class="main-date" id="_main-date"></div>
             </div>
 
             <div class="content-right">
@@ -38,13 +38,13 @@
                         </tr>
 
                         <tr>
-                            <th style = "color:red">SUN</th>
+                            <th style="color:red">SUN</th>
                             <th>MON</th>
                             <th>TUE</th>
                             <th>WED</th>
                             <th>THU</th>
                             <th>FRI</th>
-                            <th style = "color:blue">SAT</th>
+                            <th style="color:blue">SAT</th>
                         </tr>
                     </thead>
 
@@ -58,9 +58,11 @@
         // var 메모리에 남는다 vs let 함수가 끝나면 메모리에서 삭제된다.
         var currentMonth = $("#_current-month");
         var currentYear = $("#_current-year")
+        var mainDay = $("#_main-day");
+        var mainDate = $("#_main-date");
         var calendarBody = document.getElementById("_calendar-body");
         var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-        var days = ["SUN", "MON", "THU", "WED", "THU", "FRI", "SAT"];
+        var days = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
 
         // 오늘
         var today = new Date();
@@ -71,20 +73,20 @@
         // 현재 년도와 월
         var yaer, month, day;
 
+        // 처음 시작할때
         $(document).ready(function () {
             // 현재 년도와 월을 입력한다.
             year = today.getFullYear();
             month = today.getMonth();
-
-            currentYear.text(year);
-            currentMonth.text(months[month]);
-
 
             //마지막날이 몇일까지인지 구한다.
             getLastDay();
 
             //달력 만들기
             createCalendar();
+
+            mainDay.text(days[today.getDay()]);
+            mainDate.text(today.getDate());
         });
 
         $("#prev").click(function () {
@@ -107,8 +109,6 @@
             getLastDay();
             createCalendar();
 
-            currentYear.text(year);
-            currentMonth.text(months[month]);
         });
 
         $("#next").click(function () {
@@ -131,8 +131,6 @@
             getLastDay();
             createCalendar();
 
-            currentYear.text(year);
-            currentMonth.text(months[month]);
         });
 
         // 마지막날 구하기
@@ -159,7 +157,7 @@
                 for (let j = 0; j < 7; j++) {
                     var _td = document.createElement("td");
                     _td.setAttribute("id", "_td" + i + "_" + j);
-
+                    _td.setAttribute("onclick", "changeDay(this)");
                     if (i == 0) {
                         if (j >= first.getDay()) {
                             _td.textContent = cnt;
@@ -182,6 +180,24 @@
                 }
 
                 calendarBody.appendChild(_tr);
+            }
+
+            currentYear.text(year);
+            currentMonth.text(months[month]);
+        }
+
+        // click 했을때 비어있지 않으면 main 날짜 바꾸기
+        function changeDay(obj) {
+            // 안비어있을때
+            if (obj.textContent != "") {
+                // id를 찾은다음에
+                let id = obj.id.toString();
+                
+                // 요일의 index를 가져온다.
+                let idx = id.substring(id.length - 1, id.length);
+                
+                mainDay.text(days[idx]);
+                mainDate.text(obj.textContent);
             }
         }
     </script>
