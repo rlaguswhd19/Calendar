@@ -174,25 +174,12 @@
                         if (j >= first.getDay()) {
                             _td.textContent = cnt;
                             day = new Date(year, month, cnt);
-
-                            // 선택된 날짜에 빨간색 만들기
-                            if (day.getTime() == currentDate.getTime()) {
-                                _td.style.backgroundColor = 'red';
-                                currentTd = _td;
-                            }
-
                             cnt++;
                         }
                     } else {
                         if (cnt <= monthDays) {
                             _td.textContent = cnt;
                             day = new Date(year, month, cnt);
-
-                            // 선택된 날짜에 빨간색 만들기
-                            if (day.getTime() == currentDate.getTime()) {
-                                _td.style.backgroundColor = 'red';
-                                currentTd = _td;
-                            }
                             cnt++;
                         }
                     }
@@ -201,6 +188,13 @@
                     // if (j == 0 || j == 6) {
                     //     _td.style.color = "red";
                     // }
+
+                    // 선택하기 currentTd
+                    if (day != null && day.getTime() == currentDate.getTime()) {
+                        _td.style.backgroundColor = 'red';
+                        currentTd = _td;
+                    }
+
                     _td.value = day;
                     _tr.appendChild(_td);
 
@@ -217,17 +211,16 @@
         function changeDay(obj) {
             // 안비어있을때
             if (obj.textContent != "") {
-                // currentTd.style.backgroundColor = "white";
-                // // id를 찾은다음에
-                // let id = obj.id.toString();
-
-                // // 요일의 index를 가져온다.
-                // let idx = id.substring(id.length - 1, id.length);
-
-                // mainDay.text(days[idx]);
-                // mainDate.text(obj.textContent);
-                // currentTd = obj;
-                // currentTd.style.backgroundColor = "red";
+                currentTd.style.backgroundColor = "white";
+                
+                // 설정해준다.
+                currentDate = obj.value;
+                mainDay.text(days[currentDate.getDay()]);
+                mainDate.text(currentDate.getDate());
+                
+                // 현재 선택된 Td를 바꿔준다.
+                currentTd = obj;
+                currentTd.style.backgroundColor = "red";
             }
         };
 
