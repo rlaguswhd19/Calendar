@@ -101,7 +101,7 @@
             document.getElementById("_calendar-body").remove();
 
             // tbody 다시만들기
-            var tbody = document.createElement("tbody");
+            let tbody = document.createElement("tbody");
             tbody.setAttribute("id", "_calendar-body");
             tbody.setAttribute("class", "calendar-body");
             document.getElementById("_calendar").appendChild(tbody);
@@ -109,6 +109,7 @@
             getLastDay();
             createCalendar();
 
+            
         });
 
         $("#next").click(function () {
@@ -123,7 +124,7 @@
             document.getElementById("_calendar-body").remove();
 
             // tbody 다시만들기
-            var tbody = document.createElement("tbody");
+            let tbody = document.createElement("tbody");
             tbody.setAttribute("id", "_calendar-body");
             tbody.setAttribute("class", "calendar-body");
             document.getElementById("_calendar").appendChild(tbody);
@@ -151,11 +152,11 @@
                     break;
                 }
 
-                var _tr = document.createElement("tr");
+                let _tr = document.createElement("tr");
                 _tr.setAttribute("id", "_tr" + i);
 
                 for (let j = 0; j < 7; j++) {
-                    var _td = document.createElement("td");
+                    let _td = document.createElement("td");
                     _td.setAttribute("id", "_td" + i + "_" + j);
                     _td.setAttribute("onclick", "changeDay(this)");
                     if (i == 0) {
