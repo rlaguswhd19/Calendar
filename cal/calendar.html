@@ -20,7 +20,7 @@
             </div>
 
             <div class="content-right">
-                <h1 id="_current-year" style="font-size: 50px;"></h1>
+                <h1 id="_current-year" style="font-size: 50px"></h1>
                 <table id="_calendar" style="width:100%">
                     <thead>
                         <tr>
@@ -87,7 +87,6 @@
             month = today.getMonth();
             currentDate = new Date(year, month, today.getDate());
 
-            alert(currentDate.getTime());
             //마지막날이 몇일까지인지 구한다.
             getLastDay();
 
@@ -97,7 +96,6 @@
             //달력 만들기
             createCalendar();
 
-            alert(currentTd.value);
         });
 
         $("#prev").click(function () {
@@ -169,7 +167,6 @@
                     let day = null;
                     _td.setAttribute("id", "_td" + i + "_" + j);
                     _td.setAttribute("onclick", "changeDay(this)");
-
                     if (i == 0) {
                         if (j >= first.getDay()) {
                             _td.textContent = cnt;
@@ -191,7 +188,8 @@
 
                     // 선택하기 currentTd
                     if (day != null && day.getTime() == currentDate.getTime()) {
-                        _td.style.backgroundColor = 'red';
+                        _td.style.backgroundColor = "red";
+                        _td.style.color = "white";
                         currentTd = _td;
                     }
 
@@ -212,7 +210,7 @@
             // 안비어있을때
             if (obj.textContent != "") {
                 currentTd.style.backgroundColor = "white";
-                
+                currentTd.style.color = "black";
                 // 설정해준다.
                 currentDate = obj.value;
                 mainDay.text(days[currentDate.getDay()]);
@@ -221,6 +219,7 @@
                 // 현재 선택된 Td를 바꿔준다.
                 currentTd = obj;
                 currentTd.style.backgroundColor = "red";
+                currentTd.style.color = "white";
             }
         };
 

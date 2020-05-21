@@ -38,7 +38,6 @@ html, body{
 
 .content-right table ,th, td {
     border-collapse: collapse;
-    border: 1px solid black;
 }
 
 .content-right th, td {
